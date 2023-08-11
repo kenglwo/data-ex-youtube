@@ -1,0 +1,46 @@
+---
+title: "Youtube Data"
+author: "Kento Shigyo"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# install.packages("tidyverse")
+library(tidyverse)
+```
+
+
+**Load dataset**
+```{r label='load_dataset', message=FALSE}
+data <- read_csv('./Global YouTube Statistics.csv')
+```
+
+**Show headlines**
+```{r label='headlines'}
+data %>% 
+  head(3) %>%
+  view()
+  # select(rank, Youtuber, subscribers, Country) %>% 
+  # rename(Rank=rank, Subscribers=subscribers) %>% 
+  # knitr::kable()
+```
+
+**Order by Youtubers and country**
+```{r}
+data %>% 
+  group_by(Country) %>%
+  summarise(Youtubers=n()) %>% 
+  arrange(desc(Youtubers)) 
+# %>% 
+  # filter(Country == "Japan")
+```
+
+**Japanese top youtuebrs**
+
+```{r}
+data %>% 
+  filter(Country == "Japan") 
+```
+
